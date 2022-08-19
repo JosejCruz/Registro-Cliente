@@ -86,7 +86,7 @@ function FormClient() {
           <label htmlFor="floatingInput">Activo</label>
         </div>
         <div className="d-grid gap-2 mx-auto text-center pt-3">
-          <button className="btn color-button text-white mb-2">
+          <button className="color-button">
             <ion-icon name="save-outline"></ion-icon> Crear Nuevo
           </button>
         </div>
