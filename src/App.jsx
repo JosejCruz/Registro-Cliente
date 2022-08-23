@@ -14,6 +14,7 @@ function App() {
   const [ListaCentro, setListaCentro] = useState([])
   useEffect(() => {
     FireBase.clientesSnapshot((cols)=>{
+      console.log(cols)
       setListaCentro(cols)
     })
   

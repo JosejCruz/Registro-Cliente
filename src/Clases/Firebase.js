@@ -55,7 +55,9 @@ export default class FireBase {
         onSnapshot(collection(this.db,"Clientes"),(docs)=>{
             let collecciones = []
             docs.forEach((doc)=>{
-                collecciones.push(doc.data())
+                let cliente = doc.data()
+                cliente.id = doc.id
+                collecciones.push(cliente)
             })
             cb(collecciones)
         })
