@@ -12,6 +12,16 @@ function App() {
   const [Fechas, setFechas] = useState({inicial:moment().startOf("M").format("YYYY-MM-DD"),final:moment().endOf("M").format("YYYY-MM-DD")})
   const [CentroSeleccionado, setCentroSeleccionado] = useState(undefined)
   const [ListaCentro, setListaCentro] = useState([])
+  useEffect(() => {
+    FireBase.clientesSnapshot((cols)=>{
+      setListaCentro(cols)
+    })
+  
+    return () => {
+      //second
+    }
+  }, [])
+  
   return (
     <div className="App">
       <Navbar Fechas={Fechas} setFechas={setFechas}/>

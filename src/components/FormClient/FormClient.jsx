@@ -12,6 +12,7 @@ function FormClient() {
       Exedente:0
     }
   )
+  const [Procesando, setProcesando] = useState(true)
   let cambiardatos = (e)=>{
     if(e.target.name === "LimiteInicial" || e.target.name === "MontoInicial" || e.target.name === "Exedente"){
       let valor = isNaN(parseInt(e.target.value))?0:parseInt(e.target.value)
@@ -28,18 +29,21 @@ function FormClient() {
     }
   }
   let guardar = async ()=>{
-    console.log(Cliente)
-    await FireBase.SetCliente(Cliente)
-    setCliente(
-      {
-        Nombre: "",
-        Ciudad: "",
-        url: "",
-        LimiteInicial:0,
-        MontoInicial:0,
-        Exedente:0
-      }
-    )
+    setProcesando(true)
+    let registro = await FireBase.SetCliente(Cliente)
+    if(registro){
+      setCliente(
+        {
+          Nombre: "",
+          Ciudad: "",
+          url: "",
+          LimiteInicial:0,
+          MontoInicial:0,
+          Exedente:0
+        }
+      )
+    }
+    setProcesando(false)
   }
   return (
     <div
@@ -135,7 +139,7 @@ function FormClient() {
           <label htmlFor="floatingInput">Excedente</label>
         </div>
         <div className="d-grid gap-2 mx-auto text-center pt-3">
-          <button className="color-button" onClick={guardar}>
+          <button className="color-button" onClick={guardar} disabled={Procesando}>
             <ion-icon name="save-outline"></ion-icon> Crear Nuevo
           </button>
         </div>

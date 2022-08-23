@@ -1,6 +1,17 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc } from "firebase/firestore";
+
+
+function validar(cliente){
+    let flag = false
+    let urlReg = /\w+\:\/{2}\w+.\w+.\w+/g
+    if(cliente.Nombre !== "" && cliente.Ciudad !== "" && urlReg.test(cliente.url)){
+        flag = true
+    }
+    return flag
+}
+
 
 export default class FireBase {
     static firebaseConfig = {
@@ -19,20 +30,34 @@ export default class FireBase {
         this.db = getFirestore(this.app);
     }
     static async SetCliente(cliente) {
-        console.log(this.db)
-        try {
-            const docRef = await addDoc(collection(this.db, "Clientes"), {
-                Nombre: cliente.Nombre,
-                Ciudad: cliente.Ciudad,
-                url: cliente.url,
-                LimiteInicial:cliente.LimiteInicial,
-                MontoInicial:cliente.MontoInicial,
-                Exedente:cliente.Exedente,
-                Activo:true
-            });
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        if(validar(cliente)){
+            try {
+                const docRef = await addDoc(collection(this.db, "Clientes"), {
+                    Nombre: cliente.Nombre,
+                    Ciudad: cliente.Ciudad,
+                    url: cliente.url,
+                    LimiteInicial:cliente.LimiteInicial,
+                    MontoInicial:cliente.MontoInicial,
+                    Exedente:cliente.Exedente,
+                    Activo:true
+                });
+                console.log("Document written with ID: ", docRef.id);
+                return true
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                return false
+            }
         }
+        alert("Datos incorrectos")
+        return false
+    }
+    static async clientesSnapshot(cb){
+        onSnapshot(collection(this.db,"Clientes"),(docs)=>{
+            let collecciones = []
+            docs.forEach((doc)=>{
+                collecciones.push(doc.data())
+            })
+            cb(collecciones)
+        })
     }
 }
