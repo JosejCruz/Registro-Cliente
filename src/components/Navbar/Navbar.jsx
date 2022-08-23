@@ -3,6 +3,7 @@ import '../../css/icon.css'
 import './Navbar.css'
 import Calendar from '../Calendar/Calendar';
 import FormClient from '../FormClient/FormClient';
+import FormEditClient from '../FormClient/FormEditClient';
 
 function Navbar(props) {
   return (
@@ -27,9 +28,19 @@ function Navbar(props) {
           >
             <ion-icon name="person-add-outline"></ion-icon>
           </button>
+          <button
+            className="btn color text-white"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          >
+            <ion-icon name="settings-outline"></ion-icon>
+          </button>
         </div>
-        <FormClient/>
-        <Calendar {...props}/>
+        <FormClient />
+        <FormEditClient {...props}/>
+        <Calendar {...props} />
       </div>
     </div>
   );

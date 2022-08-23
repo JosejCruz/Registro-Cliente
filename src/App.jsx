@@ -24,7 +24,7 @@ function App() {
   
   return (
     <div className="App">
-      <Navbar Fechas={Fechas} setFechas={setFechas}/>
+      <Navbar Fechas={Fechas} setFechas={setFechas} ListaCentro={ListaCentro}/>
       <Main Fechas={Fechas} CentroSeleccionado={CentroSeleccionado} ListaCentro={ListaCentro}/>
     </div>
   )
