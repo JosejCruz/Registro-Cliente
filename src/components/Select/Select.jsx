@@ -1,15 +1,16 @@
 import React from 'react'
 
-function Select() {
+function Select(props) {
+  let centros = props.ListaCentro.map((centro,index)=><option>Centro {index}</option>)
   return (
     <select
       className="form-select mb-4 shadow-sm p-3 mb-3 bg-body rounded"
       aria-label="Default select example"
+      value={props.CentroSeleccionado}
+      onChange={(e)=>{console.log(e.target.value)}}
     >
       <option>Centros Medicos</option>
-      <option>Centro 1</option>
-      <option>Centro 2</option>
-      <option>Centro 3</option>
+      {centros}
     </select>
   );
 }

@@ -1,6 +1,46 @@
-import React from 'react'
+import React,{useState} from 'react'
+import FireBase from '../../Clases/Firebase'
 
 function FormClient() {
+  const [Cliente, setCliente] = useState(
+    {
+      Nombre: "",
+      Ciudad: "",
+      url: "",
+      LimiteInicial:0,
+      MontoInicial:0,
+      Exedente:0
+    }
+  )
+  let cambiardatos = (e)=>{
+    if(e.target.name === "LimiteInicial" || e.target.name === "MontoInicial" || e.target.name === "Exedente"){
+      let valor = isNaN(parseInt(e.target.value))?0:parseInt(e.target.value)
+      let target = e.target.name
+      let a = Cliente
+      a[target] = valor
+      setCliente({...a})
+    }else{
+      let valor = e.target.value
+      let target = e.target.name
+      let a = Cliente
+      a[target] = valor
+      setCliente({...a})
+    }
+  }
+  let guardar = async ()=>{
+    console.log(Cliente)
+    await FireBase.SetCliente(Cliente)
+    setCliente(
+      {
+        Nombre: "",
+        Ciudad: "",
+        url: "",
+        LimiteInicial:0,
+        MontoInicial:0,
+        Exedente:0
+      }
+    )
+  }
   return (
     <div
       className="offcanvas offcanvas-start"
@@ -28,6 +68,9 @@ function FormClient() {
             className="form-control mb-2"
             placeholder="Nombre"
             required
+            value={Cliente.Nombre}
+            name="Nombre"
+            onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Nombre</label>
         </div>
@@ -37,6 +80,9 @@ function FormClient() {
             className="form-control mb-2"
             placeholder="Ciudad"
             required
+            value={Cliente.Ciudad}
+            name="Ciudad"
+            onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Ciudad</label>
         </div>
@@ -46,6 +92,9 @@ function FormClient() {
             className="form-control mb-2"
             placeholder="URL"
             required
+            value={Cliente.url}
+            name="url"
+            onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">URL</label>
         </div>
@@ -55,6 +104,9 @@ function FormClient() {
             className="form-control mb-2"
             placeholder="Limite Inicial"
             required
+            value={Cliente.LimiteInicial.toString()}
+            name="LimiteInicial"
+            onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Limite Inicial</label>
         </div>
@@ -64,6 +116,9 @@ function FormClient() {
             className="form-control mb-2"
             placeholder="Monto Inicial"
             required
+            value={Cliente.MontoInicial.toString()}
+            name="MontoInicial"
+            onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Monto Inicial</label>
         </div>
@@ -73,20 +128,14 @@ function FormClient() {
             className="form-control mb-2"
             placeholder="Excedente"
             required
+            value={Cliente.Exedente.toString()}
+            name="Exedente"
+            onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Excedente</label>
         </div>
-        <div className="form-floating">
-          <input
-            type="text"
-            className="form-control mb-2"
-            placeholder="Activo"
-            required
-          />
-          <label htmlFor="floatingInput">Activo</label>
-        </div>
         <div className="d-grid gap-2 mx-auto text-center pt-3">
-          <button className="color-button">
+          <button className="color-button" onClick={guardar}>
             <ion-icon name="save-outline"></ion-icon> Crear Nuevo
           </button>
         </div>
