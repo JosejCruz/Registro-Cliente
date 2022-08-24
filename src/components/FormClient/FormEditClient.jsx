@@ -1,28 +1,25 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Select from '../Select/Select';
 
 function FormEditClient(props) {
-//--//Useref para actualizar datos--//
-  const Nombreref = useRef(null)
-  const Ciudadref = useRef(null)
-  const urlref = useRef(null)
-  const LimiteInicialref = useRef(null)
-  const MontoInicialref = useRef(null)
-  const Exedenteref = useRef(null)
-  const Activoref = useRef(null)
-
+//--// para actualizar datos--//
+const Inicial = {
+  Nombre: "",
+  Ciudad: "",
+  url: "",
+  LimiteInicial: 0,
+  MontoInicial: 0,
+  Exedente: 0,
+  Activo: Boolean,
+  id: "",
+};
 //----//----//----//
-  const [Datos, setDatos] = useState({
-    Nombre: "",
-    Ciudad: "",
-    url: "",
-    LimiteInicial: 0,
-    MontoInicial: 0,
-    Exedente: 0,
-    Activo: Boolean,
-    id: ""
-  })
+  const [Datos, setDatos] = useState(Inicial)
 
+  const handleChangeDatos = (e) => {
+    const { name, value } = e.target;
+    setDatos({...Inicial, [name]: value });
+  };
 //----//----//----//
 
 
@@ -60,8 +57,9 @@ function FormEditClient(props) {
             placeholder="Nombre"
             required
             // value={Cliente.Nombre}
+            onChange={handleChangeDatos}
             name="Nombre"
-            ref={Nombreref}
+            value={Datos.Nombre}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Nombre</label>
@@ -71,10 +69,11 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Ciudad"
-            ref={Ciudadref}
             required
             // value={Cliente.Ciudad}
+            onChange={handleChangeDatos}
             name="Ciudad"
+            value={Datos.Ciudad}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Ciudad</label>
@@ -84,10 +83,11 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="URL"
-            ref={urlref}
             required
             // value={Cliente.url}
+            onChange={handleChangeDatos}
             name="url"
+            value={Datos.url}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">URL</label>
@@ -97,10 +97,11 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Limite Inicial"
-            ref={LimiteInicialref}
             required
             // value={Cliente.LimiteInicial.toString()}
+            onChange={handleChangeDatos}
             name="LimiteInicial"
+            value={Datos.LimiteInicial}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Limite Inicial</label>
@@ -110,10 +111,11 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Monto Inicial"
-            ref={MontoInicialref}
             required
             // value={Cliente.MontoInicial.toString()}
+            onChange={handleChangeDatos}
             name="MontoInicial"
+            value={Datos.MontoInicial}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Monto Inicial</label>
@@ -123,10 +125,11 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Excedente"
-            ref={Exedenteref}
             required
             // value={Cliente.Exedente.toString()}
+            onChange={handleChangeDatos}
             name="Exedente"
+            value={Datos.Exedente}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Excedente</label>

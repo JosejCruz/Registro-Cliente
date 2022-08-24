@@ -7,9 +7,11 @@ function Select(props) {
   const selectonChange = (e) => {
     const indice = e.target.options.selectedIndex
     console.log(indice)
-    const datos = props.ListaCentro[indice-1]
-    console.log(datos)
-    props.setDatos(datos)
+    if (indice != 0) {
+      const datos = props.ListaCentro[indice - 1];
+      console.log(datos);
+      props.setDatos(datos);
+    }
   }
   return (
     <select
