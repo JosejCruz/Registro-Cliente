@@ -1,6 +1,6 @@
 symphony
 santa cruz
-symphonypacs.web.app
+https://unimagen.medicaltecsrl.com:4443
 100
 700
 5
