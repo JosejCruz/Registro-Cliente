@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import FireBase from '../../Clases/Firebase';
 import Select from '../Select/Select';
 
 function FormEditClient(props) {
@@ -10,7 +11,7 @@ const Inicial = {
   LimiteInicial: 0,
   MontoInicial: 0,
   Exedente: 0,
-  Activo: Boolean,
+  Activo: true,
   id: "",
 };
 //----//----//----//
@@ -18,14 +19,19 @@ const Inicial = {
 
   const handleChangeDatos = (e) => {
     const { name, value } = e.target;
-    setDatos({...Datos, [name]: value });
+    if(name === "LimiteInicial" || name === "MontoInicial" || name === "Exedente"){
+      setDatos({...Datos, [name]: isNaN(parseInt(value))? 0 : parseInt(value)})
+    }else{
+      setDatos({...Datos, [name]: value });
+    }
   };
 //----//----//----//
-
-
-  let buscarEstudios = ()=>{
-    console.log(props.Fechas)
+  const actualizardatos = () => {
+    FireBase.actualizaregistro(Datos)
+    setDatos(Inicial)
   }
+//----//----//----//
+
   return (
     <div
       className="offcanvas offcanvas-end"
@@ -101,7 +107,7 @@ const Inicial = {
             // value={Cliente.LimiteInicial.toString()}
             onChange={handleChangeDatos}
             name="LimiteInicial"
-            value={Datos.LimiteInicial}
+            value={Datos.LimiteInicial.toString()}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Limite Inicial</label>
@@ -115,7 +121,7 @@ const Inicial = {
             // value={Cliente.MontoInicial.toString()}
             onChange={handleChangeDatos}
             name="MontoInicial"
-            value={Datos.MontoInicial}
+            value={Datos.MontoInicial.toString()}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Monto Inicial</label>
@@ -129,13 +135,13 @@ const Inicial = {
             // value={Cliente.Exedente.toString()}
             onChange={handleChangeDatos}
             name="Exedente"
-            value={Datos.Exedente}
+            value={Datos.Exedente.toString()}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Excedente</label>
         </div>
         <div className="d-grid gap-2 mx-auto text-center pt-3">
-          <button className="color-button">
+          <button className="color-button" onClick={actualizardatos}>
             <ion-icon name="build-outline"></ion-icon> Actualizar
           </button>
         </div>

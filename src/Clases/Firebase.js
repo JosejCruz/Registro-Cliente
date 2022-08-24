@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, setDoc } from 'firebase/firestore';
 import { collection, addDoc, onSnapshot, doc } from "firebase/firestore";
 
 
@@ -60,5 +60,11 @@ export default class FireBase {
       });
       cb(collecciones);
     });
+  }
+  static async actualizaregistro(cliente) {
+    let docRef = doc(this.db, "Clientes", cliente.id);
+    delete cliente.id;
+    setDoc(docRef, cliente)
+    return true;
   }
 }
