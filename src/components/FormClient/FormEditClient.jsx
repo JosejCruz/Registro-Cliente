@@ -18,7 +18,7 @@ const Inicial = {
 
   const handleChangeDatos = (e) => {
     const { name, value } = e.target;
-    setDatos({...Inicial, [name]: value });
+    setDatos({...Datos, [name]: value });
   };
 //----//----//----//
 

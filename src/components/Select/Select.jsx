@@ -10,7 +10,9 @@ function Select(props) {
     if (indice != 0) {
       const datos = props.ListaCentro[indice - 1];
       console.log(datos);
-      props.setDatos(datos);
+      if (props.setDatos !== undefined) {
+        props.setDatos(datos);
+      }
     }
   }
   return (
