@@ -12,7 +12,7 @@ function FormClient() {
       Exedente:0
     }
   )
-  const [Procesando, setProcesando] = useState(true)
+  const [Procesando, setProcesando] = useState(false)
   let cambiardatos = (e)=>{
     if(e.target.name === "LimiteInicial" || e.target.name === "MontoInicial" || e.target.name === "Exedente"){
       let valor = isNaN(parseInt(e.target.value))?0:parseInt(e.target.value)
@@ -139,7 +139,7 @@ function FormClient() {
           <label htmlFor="floatingInput">Excedente</label>
         </div>
         <div className="d-grid gap-2 mx-auto text-center pt-3">
-          <button className="color-button" onClick={guardar} disabled={Procesando}>
+          <button className="color-button" onClick={guardar}  disabled={Procesando}>
             <ion-icon name="save-outline"></ion-icon> Crear Nuevo
           </button>
         </div>

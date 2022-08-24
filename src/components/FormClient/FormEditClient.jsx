@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Select from '../Select/Select';
 
 function FormEditClient(props) {
+//--//Useref para actualizar datos--//
+  const Nombreref = useRef(null)
+  const Ciudadref = useRef(null)
+  const urlref = useRef(null)
+  const LimiteInicialref = useRef(null)
+  const MontoInicialref = useRef(null)
+  const Exedenteref = useRef(null)
+  const Activoref = useRef(null)
+
+//----//----//----//
+  const [Datos, setDatos] = useState({
+    Nombre: "",
+    Ciudad: "",
+    url: "",
+    LimiteInicial: 0,
+    MontoInicial: 0,
+    Exedente: 0,
+    Activo: Boolean,
+    id: ""
+  })
+
+//----//----//----//
+
+
   let buscarEstudios = ()=>{
     console.log(props.Fechas)
   }
@@ -27,7 +51,7 @@ function FormEditClient(props) {
       </div>
       <div className="offcanvas-body">
         <div className="form-floating">
-          <Select {...props} />
+          <Select {...props} setDatos={setDatos}/>
         </div>
         <div className="form-floating">
           <input
@@ -37,6 +61,7 @@ function FormEditClient(props) {
             required
             // value={Cliente.Nombre}
             name="Nombre"
+            ref={Nombreref}
             // onChange={cambiardatos}
           />
           <label htmlFor="floatingInput">Nombre</label>
@@ -46,6 +71,7 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Ciudad"
+            ref={Ciudadref}
             required
             // value={Cliente.Ciudad}
             name="Ciudad"
@@ -58,6 +84,7 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="URL"
+            ref={urlref}
             required
             // value={Cliente.url}
             name="url"
@@ -70,6 +97,7 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Limite Inicial"
+            ref={LimiteInicialref}
             required
             // value={Cliente.LimiteInicial.toString()}
             name="LimiteInicial"
@@ -82,6 +110,7 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Monto Inicial"
+            ref={MontoInicialref}
             required
             // value={Cliente.MontoInicial.toString()}
             name="MontoInicial"
@@ -94,6 +123,7 @@ function FormEditClient(props) {
             type="text"
             className="form-control mb-2"
             placeholder="Excedente"
+            ref={Exedenteref}
             required
             // value={Cliente.Exedente.toString()}
             name="Exedente"
