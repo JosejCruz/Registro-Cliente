@@ -1,0 +1,6 @@
+symphony
+santa cruz
+symphonypacs.web.app
+100
+700
+5
