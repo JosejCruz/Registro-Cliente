@@ -4,3 +4,6 @@ https://unimagen.medicaltecsrl.com:4443
 100
 700
 5
+
+
+url/getestudios?inicio=#######&fin=########
