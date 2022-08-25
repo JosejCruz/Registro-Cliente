@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Items from '../Items/Items';
 import ItemsTotal from '../ItemsTotal/ItemsTotal';
 import Select from '../Select/Select';
 import './Main.css'
 import BuscarEstudio from './BuscarEstudio'
+import { async } from '@firebase/util';
 function main(props) {
   const Inicial = {
     Nombre: "",
@@ -17,6 +18,7 @@ function main(props) {
   };
   //----//----//-4403---//
     const [Datos, setDatos] = useState(Inicial)
+    const [Estudios, setEstudios] = useState(null)
   
   return (
     <div className="container-fluid">
@@ -33,16 +35,16 @@ function main(props) {
       </div>
 
       <div className='row'>
-        <Items/>
+        <Items Estudios={Estudios}/>
       </div>
 
       <div className='row'>
-        <ItemsTotal/>
+        <ItemsTotal Estudios={Estudios} Datos={Datos}/>
       </div>
 
       <div className="row">
         <div className="d-grid gap-2 text-center col-sm-12 col-md-4 col-lg-4 pt-4">
-          <button className="color-button" onClick={()=>{BuscarEstudio(Datos, props.Fechas)}}>
+          <button className="color-button" onClick={async()=>{setEstudios(await BuscarEstudio(Datos, props.Fechas))}}>
           <ion-icon name="search-outline"></ion-icon> Buscar
           </button>
         </div>

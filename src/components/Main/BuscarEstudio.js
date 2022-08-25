@@ -28,25 +28,29 @@ import moment from 'moment'
 //     ]
 // }
 const BuscarEstudios = async (Cliente, Fechas) =>{
-    console.log('Buscando')
-    console.log(Cliente)
-    console.log(Fechas)
-    const fi = moment(Fechas.inicial, "YYYY-MM-DD").format("YYYYMMDD")
-    const ff = moment(Fechas.final, "YYYY-MM-DD").format("YYYYMMDD")
-    console.log(fi, ff)
-    let datos = await axios.get(`${Cliente.url}/getestudios?inicio=${fi}&${ff}`)
-    console.log(datos.data)
-    let est = datos.data
-    let obj = {}
-    est.forEach((e) => {
-        let mod = e.SERIES[0].MODALIDAD
-        if (obj[mod]) {
-            obj[mod]++
-        }
-        else{
-            obj[mod] = 1
-        }
-    });
-    console.log(obj)
+    if (Cliente.Nombre != '') {
+        console.log("Buscando");
+        console.log(Cliente);
+        console.log(Fechas);
+        const fi = moment(Fechas.inicial, "YYYY-MM-DD").format("YYYYMMDD");
+        const ff = moment(Fechas.final, "YYYY-MM-DD").format("YYYYMMDD");
+        console.log(fi, ff);
+        let datos = await axios.get(
+          `${Cliente.url}/getestudios?inicio=${fi}&${ff}`
+        );
+        console.log(datos.data);
+        let est = datos.data;
+        let obj = {};
+        est.forEach((e) => {
+          let mod = e.SERIES[0].MODALIDAD;
+          if (obj[mod]) {
+            obj[mod]++;
+          } else {
+            obj[mod] = 1;
+          }
+        });
+        console.log(obj);
+        return obj;
+    }
 }
 export default BuscarEstudios

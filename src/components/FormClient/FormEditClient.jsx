@@ -36,6 +36,7 @@ const [Danger, setDanger] = useState(false);
   const actualizardatos = async () => {
     setSpinner(true)
     const res = await FireBase.actualizaregistro(Datos)
+    console.log(res)
     setSpinner(false)
     if (res) {
       setDatos(Inicial)
