@@ -1,5 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FireBase from '../../Clases/Firebase';
+import AlertDanger from '../Alerts/AlertDanger';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import Loading from '../LoadingEffect/Loading';
 import Select from '../Select/Select';
 
 function FormEditClient(props) {
@@ -15,6 +18,10 @@ const Inicial = {
   id: "",
 };
 //----//----//----//
+const [spinner, setSpinner] = useState(false);
+const [Success, setSuccess] = useState(false);
+const [Danger, setDanger] = useState(false);
+//----//----//----//
   const [Datos, setDatos] = useState(Inicial)
 
   const handleChangeDatos = (e) => {
@@ -26,9 +33,22 @@ const Inicial = {
     }
   };
 //----//----//----//
-  const actualizardatos = () => {
-    FireBase.actualizaregistro(Datos)
-    setDatos(Inicial)
+  const actualizardatos = async () => {
+    setSpinner(true)
+    const res = await FireBase.actualizaregistro(Datos)
+    setSpinner(false)
+    if (res) {
+      setDatos(Inicial)
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 5000);
+    }else{
+      setDanger(true)
+      setTimeout(() => {
+        setDanger(false)
+      }, 5000);
+    }
   }
 //----//----//----//
 
@@ -41,6 +61,8 @@ const Inicial = {
       id="offcanvasRight"
       aria-labelledby="offcanvasRightLabel"
     >
+      {Success&&<AlertSuccess/>}
+      {Danger&&<AlertDanger/>}
       <div className="offcanvas-header">
         <h5 className="offcanvas-title" id="offcanvasRightLabel">
           Editar Cliente
@@ -146,6 +168,7 @@ const Inicial = {
           </button>
         </div>
       </div>
+      {spinner&&<Loading/>}
     </div>
   );
 }

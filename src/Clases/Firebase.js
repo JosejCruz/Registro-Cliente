@@ -64,7 +64,7 @@ export default class FireBase {
   static async actualizaregistro(cliente) {
     let docRef = doc(this.db, "Clientes", cliente.id);
     delete cliente.id;
-    setDoc(docRef, cliente)
-    return true;
+    const res = await setDoc(docRef, cliente)
+    return res == true;
   }
 }
