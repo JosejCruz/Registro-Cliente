@@ -36,5 +36,17 @@ const BuscarEstudios = async (Cliente, Fechas) =>{
     console.log(fi, ff)
     let datos = await axios.get(`${Cliente.url}/getestudios?inicio=${fi}&${ff}`)
     console.log(datos.data)
-}  
+    let est = datos.data
+    let obj = {}
+    est.forEach((e) => {
+        let mod = e.SERIES[0].MODALIDAD
+        if (obj[mod]) {
+            obj[mod]++
+        }
+        else{
+            obj[mod] = 1
+        }
+    });
+    console.log(obj)
+}
 export default BuscarEstudios

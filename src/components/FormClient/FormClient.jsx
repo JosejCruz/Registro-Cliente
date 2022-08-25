@@ -1,7 +1,19 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import FireBase from '../../Clases/Firebase'
+import AlertDanger from '../Alerts/AlertDanger';
+import AlertSuccess from '../Alerts/AlertSuccess';
+import Loading from '../LoadingEffect/Loading';
 
 function FormClient() {
+  //----//--Efecto carga y mensaje success--//----//
+  const [spinner, setSpinner] = useState(false);
+  const [Success, setSuccess] = useState(false);
+  const [Danger, setDanger] = useState(false);
+  //----//--Mensaje a mostrar--//----//
+  //----//--Useeffect para efecto loading--//----//
+  const [Procesando, setProcesando] = useState(false)
+  //----//----//----//
+
   const [Cliente, setCliente] = useState(
     {
       Nombre: "",
@@ -12,7 +24,7 @@ function FormClient() {
       Exedente:0
     }
   )
-  const [Procesando, setProcesando] = useState(false)
+  
   let cambiardatos = (e)=>{
     if(e.target.name === "LimiteInicial" || e.target.name === "MontoInicial" || e.target.name === "Exedente"){
       let valor = isNaN(parseInt(e.target.value))?0:parseInt(e.target.value)
@@ -29,8 +41,10 @@ function FormClient() {
     }
   }
   let guardar = async ()=>{
-    setProcesando(true)
+    setSpinner(true)
     let registro = await FireBase.SetCliente(Cliente)
+    setSpinner(false)
+    setProcesando(true)
     if(registro){
       setCliente(
         {
@@ -42,6 +56,15 @@ function FormClient() {
           Exedente:0
         }
       )
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 5000);
+    }else{
+      setDanger(true)
+      setTimeout(() => {
+        setDanger(false)
+      }, 5000);
     }
     setProcesando(false)
   }
@@ -54,6 +77,8 @@ function FormClient() {
       id="offcanvasScrolling"
       aria-labelledby="offcanvasScrollingLabel"
     >
+      {Success&&<AlertSuccess/>}
+      {Danger&&<AlertDanger/>}
       <div className="offcanvas-header">
         <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
           Nuevo Registro de Cliente
@@ -144,6 +169,7 @@ function FormClient() {
           </button>
         </div>
       </div>
+      {spinner&&<Loading/>}
     </div>
   );
 }
