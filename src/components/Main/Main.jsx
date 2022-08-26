@@ -4,8 +4,10 @@ import ItemsTotal from '../ItemsTotal/ItemsTotal';
 import Select from '../Select/Select';
 import './Main.css'
 import BuscarEstudio from './BuscarEstudio'
-import ExportExcel from '../Exports/Excel'
+//import ExportExcel from '../Exports/Excel'
+import ExportExcel from '../Exports/ExportExcel'
 import * as XLSX from 'xlsx';
+import { async } from '@firebase/util';
 function main(props) {
   const Inicial = {
     Nombre: "",
@@ -20,19 +22,15 @@ function main(props) {
   //----//----//-4403---//
     const [Datos, setDatos] = useState(Inicial)
     const [Estudios, setEstudios] = useState(null)
+    const [Export, setExport] = useState(null)
   
-    const handleExportExcel = () => {
-      console.log("Exportar");
-      var tabla = "Estudios";
-      var total = "Total";
-      var array1 = ExportExcel(tabla)
-      var array2 = ExportExcel(total)
-      var array1 = array1.concat(array2)
-      console.log(array1)
+    const handleExportExcel = async () => {
+      setExport(await ExportExcel(Datos, props.Fechas));
+      console.log(Export)
       //--//--//--//--//
-      var wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(array1);
-      XLSX.utils.book_append_sheet(wb, ws, "Datos");
-      XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
+      // var wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(Export);
+      // XLSX.utils.book_append_sheet(wb, ws, "Datos");
+      // XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
     };
   return (
     <div className="container-fluid">

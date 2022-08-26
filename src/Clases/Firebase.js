@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, setDoc } from 'firebase/firestore';
-import { collection, addDoc, onSnapshot, doc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 
 
 function validar(cliente){
@@ -71,4 +71,16 @@ export default class FireBase {
       return false
     }
   }
+
+  static async EliminarRegistro(cliente){
+    let docRef = doc(this.db, "Clientes", cliente.id);
+    delete cliente.id;
+    try {
+      const res = await deleteDoc(docRef, cliente)
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+
 }

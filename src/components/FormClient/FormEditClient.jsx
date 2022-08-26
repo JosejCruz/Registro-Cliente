@@ -51,6 +51,25 @@ const [Danger, setDanger] = useState(false);
       }, 5000);
     }
   }
+  //----//----//----//
+  const eliminardatos = async () => {
+    setSpinner(true)
+    const res = await FireBase.EliminarRegistro(Datos)
+    console.log(res)
+    setSpinner(false)
+    if (res) {
+      setDatos(Inicial)
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 5000);
+    }else{
+      setDanger(true)
+      setTimeout(() => {
+        setDanger(false)
+      }, 5000);
+    }
+  }
 //----//----//----//
 
   return (
@@ -62,8 +81,8 @@ const [Danger, setDanger] = useState(false);
       id="offcanvasRight"
       aria-labelledby="offcanvasRightLabel"
     >
-      {Success&&<AlertSuccess/>}
-      {Danger&&<AlertDanger/>}
+      {Success && <AlertSuccess />}
+      {Danger && <AlertDanger />}
       <div className="offcanvas-header">
         <h5 className="offcanvas-title" id="offcanvasRightLabel">
           Editar Cliente
@@ -77,7 +96,7 @@ const [Danger, setDanger] = useState(false);
       </div>
       <div className="offcanvas-body">
         <div className="form-floating">
-          <Select {...props} setDatos={setDatos}/>
+          <Select {...props} setDatos={setDatos} />
         </div>
         <div className="form-floating">
           <input
@@ -168,8 +187,13 @@ const [Danger, setDanger] = useState(false);
             <ion-icon name="build-outline"></ion-icon> Actualizar
           </button>
         </div>
+        <div className="d-grid gap-2 mx-auto text-center pt-3">
+          <button className="color-button" onClick={eliminardatos}>
+            <ion-icon name="trash-outline"></ion-icon> Eliminar
+          </button>
+        </div>
       </div>
-      {spinner&&<Loading/>}
+      {spinner && <Loading />}
     </div>
   );
 }

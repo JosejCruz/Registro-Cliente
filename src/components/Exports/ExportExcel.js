@@ -27,7 +27,7 @@ import moment from 'moment'
 //         }
 //     ]
 // }
-const BuscarEstudios = async (Cliente, Fechas) => {
+const ExportExcel = async (Cliente, Fechas) => {
   if (Cliente.Nombre != "") {
     console.log("Buscando");
     console.log(Cliente);
@@ -41,16 +41,16 @@ const BuscarEstudios = async (Cliente, Fechas) => {
     console.log(datos.data);
     let est = datos.data;
     let obj = {};
+    let array = [];
     est.forEach((e) => {
-      let mod = e.SERIES[0].MODALIDAD;
-      if (obj[mod]) {
-        obj[mod]++;
-      } else {
-        obj[mod] = 1;
-      }
-    });
-    console.log(obj);
-    return obj;
+        obj.FECHA = e.FECHA;
+        obj.NOMBRE = e.NOMBRE;
+        obj.PAS_ID = e.PAS_ID;
+        obj.MODALIDAD = e.SERIES[0].MODALIDAD;
+        array.push({...obj})
+    })
+    console.log(array)
+    return array;
   }
 };
-export default BuscarEstudios
+export default ExportExcel
