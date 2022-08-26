@@ -43,7 +43,7 @@ function Items({Estudios}) {
     </tr>
   return (
     <div className="col-sm-12 col-md-4 col-lg-4 pt-4">
-      <table className="table">
+      <table className="table" id='Estudios'>
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -54,10 +54,9 @@ function Items({Estudios}) {
         <tbody>
           {items}
           <tr>
-            <td></td>
+              <td><strong>#</strong></td>
               <td><strong>Total</strong></td>
               <td><strong>{total}</strong></td>
-            
           </tr>
         </tbody>
       </table>

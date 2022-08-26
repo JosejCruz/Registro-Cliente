@@ -4,7 +4,8 @@ import ItemsTotal from '../ItemsTotal/ItemsTotal';
 import Select from '../Select/Select';
 import './Main.css'
 import BuscarEstudio from './BuscarEstudio'
-import { async } from '@firebase/util';
+import ExportExcel from '../Exports/Excel'
+import * as XLSX from 'xlsx';
 function main(props) {
   const Inicial = {
     Nombre: "",
@@ -20,6 +21,19 @@ function main(props) {
     const [Datos, setDatos] = useState(Inicial)
     const [Estudios, setEstudios] = useState(null)
   
+    const handleExportExcel = () => {
+      console.log("Exportar");
+      var tabla = "Estudios";
+      var total = "Total";
+      var array1 = ExportExcel(tabla)
+      var array2 = ExportExcel(total)
+      var array1 = array1.concat(array2)
+      console.log(array1)
+      //--//--//--//--//
+      var wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(array1);
+      XLSX.utils.book_append_sheet(wb, ws, "Datos");
+      XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
+    };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -51,13 +65,12 @@ function main(props) {
       </div>
 
       <div className="row">
-        <div className="col-sm-12 col-md-4 col-lg-4 pt-4 d-grid gap-2 text-center ">
-          <button className="color-button">
+        <div className="col-sm-12 col-md-4 col-lg-4 pt-4 d-grid gap-2 text-center pb-4">
+          <button className="color-button" onClick={handleExportExcel}>
           <ion-icon name="cloud-download-outline"></ion-icon> Descargar
           </button>
         </div>
       </div>
-      
     </div>
   );
 }

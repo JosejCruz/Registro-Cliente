@@ -24,7 +24,7 @@ function ItemsTotal({Estudios, Datos}) {
   }
   return (
     <div className="col-sm-12 col-md-4 col-lg-4 pt-4">
-      <table className="table table-striped">
+      <table id='Total' className="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
