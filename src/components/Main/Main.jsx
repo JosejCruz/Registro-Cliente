@@ -24,13 +24,17 @@ function main(props) {
     const [Estudios, setEstudios] = useState(null)
   
     const handleExportExcel = async () => {
-      const excel = await ExportExcel(Datos, props.Fechas)
-      
-      console.log(excel)
-      //--//--//--//--//
-      var wb = XLSX.utils.book_new(), ws = XLSX.utils.json_to_sheet(excel);
-      XLSX.utils.book_append_sheet(wb, ws, "Datos");
-      XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
+      if (Estudios != null) {
+        const excel = await ExportExcel(Datos, props.Fechas);
+        console.log(excel);
+        //--//--//--//--//
+        var wb = XLSX.utils.book_new(),
+          ws = XLSX.utils.json_to_sheet(excel);
+        XLSX.utils.book_append_sheet(wb, ws, "Datos");
+        XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
+      }else{
+        alert("Seleccione un Cliente")
+      }
     };
   return (
     <div className="container-fluid">
