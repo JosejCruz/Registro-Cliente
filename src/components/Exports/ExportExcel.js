@@ -27,6 +27,36 @@ import moment from 'moment'
 //         }
 //     ]
 // }
+function TraductorDicom(dato){
+    switch (dato) {
+      case "DX":
+        return "Rayos X";
+      case "CR":
+        return "Radiografía Computarizada";
+      case "CT":
+        return "Tomografía computarizada";
+      case "MR":
+        return "Resonancia magnetica";
+      case "US":
+        return "Ultrasonido";
+      case "BI":
+        return "Imágenes biomagnéticas";
+      case "CD":
+        return "Doppler de flujo de color";
+      case "DD":
+        return "Doppler dúplex";
+      case "MG":
+        return "Mamografía";
+      case "ES":
+        return "endoscopia";
+        case "LS":
+        return "Escaneo láser de superficie";
+      default:
+        return dato;
+    }
+  }
+
+
 const ExportExcel = async (Cliente, Fechas) => {
   if (Cliente.Nombre != "") {
     console.log("Buscando");
@@ -43,10 +73,11 @@ const ExportExcel = async (Cliente, Fechas) => {
     let obj = {};
     let array = [];
     est.forEach((e) => {
-        obj.FECHA = e.FECHA;
+        var fecha = moment(e.FECHA, "YYYYMMDD").format("YYYY/MM/DD");
+        obj.FECHA = fecha;
         obj.NOMBRE = e.NOMBRE;
         obj.PAS_ID = e.PAS_ID;
-        obj.MODALIDAD = e.SERIES[0].MODALIDAD;
+        obj.MODALIDAD = TraductorDicom(e.SERIES[0].MODALIDAD)
         array.push({...obj})
     })
     console.log(array)

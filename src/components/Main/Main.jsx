@@ -22,15 +22,15 @@ function main(props) {
   //----//----//-4403---//
     const [Datos, setDatos] = useState(Inicial)
     const [Estudios, setEstudios] = useState(null)
-    const [Export, setExport] = useState(null)
   
     const handleExportExcel = async () => {
-      setExport(await ExportExcel(Datos, props.Fechas));
-      console.log(Export)
+      const excel = await ExportExcel(Datos, props.Fechas)
+      
+      console.log(excel)
       //--//--//--//--//
-      // var wb = XLSX.utils.book_new(), ws = XLSX.utils.aoa_to_sheet(Export);
-      // XLSX.utils.book_append_sheet(wb, ws, "Datos");
-      // XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
+      var wb = XLSX.utils.book_new(), ws = XLSX.utils.json_to_sheet(excel);
+      XLSX.utils.book_append_sheet(wb, ws, "Datos");
+      XLSX.writeFile(wb, `Reporte ${Date()}.xlsx`);
     };
   return (
     <div className="container-fluid">
