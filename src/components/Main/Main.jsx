@@ -8,6 +8,7 @@ import BuscarEstudio from './BuscarEstudio'
 import ExportExcel from '../Exports/ExportExcel'
 import * as XLSX from 'xlsx';
 import { async } from '@firebase/util';
+import Loading from '../LoadingEffect/Loading';
 function main(props) {
   const Inicial = {
     Nombre: "",
@@ -22,6 +23,7 @@ function main(props) {
   //----//----//-4403---//
     const [Datos, setDatos] = useState(Inicial)
     const [Estudios, setEstudios] = useState(null)
+    const [spinner, setSpinner] = useState(false)
   
     const handleExportExcel = async () => {
       if (Estudios != null) {
@@ -36,6 +38,12 @@ function main(props) {
         alert("Seleccione un Cliente")
       }
     };
+    const handleSearch = async ()=>{
+      setSpinner(true)
+      const search = await BuscarEstudio(Datos, props.Fechas)
+      setEstudios(search)
+      setSpinner(false)
+    }
   return (
     <div className="container-fluid">
       <div className="row">
@@ -60,7 +68,7 @@ function main(props) {
 
       <div className="row">
         <div className="d-grid gap-2 text-center col-sm-12 col-md-4 col-lg-4 pt-4">
-          <button className="color-button" onClick={async()=>{setEstudios(await BuscarEstudio(Datos, props.Fechas))}}>
+          <button className="color-button" onClick={handleSearch}>
           <ion-icon name="search-outline"></ion-icon> Buscar
           </button>
         </div>
@@ -73,6 +81,7 @@ function main(props) {
           </button>
         </div>
       </div>
+      {spinner&&<Loading/>}
     </div>
   );
 }
