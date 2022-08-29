@@ -16,7 +16,7 @@ function ItemsTotal({Estudios, Datos}) {
     items = keys.map((key, index) => { total += Estudios[key]})
     console.log(total)
     CostoBase = Datos.MontoInicial
-    EstudiosExcedidos = total - Datos.LimiteInicial
+    EstudiosExcedidos = total < Datos.LimiteInicial ? 0 : total - Datos.LimiteInicial;
     CostosExcedidos = Datos.Exedente * EstudiosExcedidos
     CostoTotal = CostoBase + CostosExcedidos
     console.log(Datos)

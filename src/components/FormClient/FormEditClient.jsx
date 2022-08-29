@@ -43,12 +43,12 @@ const [Danger, setDanger] = useState(false);
       setSuccess(true)
       setTimeout(() => {
         setSuccess(false)
-      }, 5000);
+      }, 1500);
     }else{
       setDanger(true)
       setTimeout(() => {
         setDanger(false)
-      }, 5000);
+      }, 1500);
     }
   }
   //----//----//----//
@@ -62,12 +62,12 @@ const [Danger, setDanger] = useState(false);
       setSuccess(true)
       setTimeout(() => {
         setSuccess(false)
-      }, 5000);
+      }, 1500);
     }else{
       setDanger(true)
       setTimeout(() => {
         setDanger(false)
-      }, 5000);
+      }, 1500);
     }
   }
 //----//----//----//

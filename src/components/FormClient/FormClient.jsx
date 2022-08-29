@@ -59,12 +59,12 @@ function FormClient() {
       setSuccess(true)
       setTimeout(() => {
         setSuccess(false)
-      }, 5000);
+      }, 1500);
     }else{
       setDanger(true)
       setTimeout(() => {
         setDanger(false)
-      }, 5000);
+      }, 1500);
     }
     setProcesando(false)
   }

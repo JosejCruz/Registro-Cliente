@@ -15,12 +15,13 @@ function validar(cliente){
 
 export default class FireBase {
   static firebaseConfig = {
-    apiKey: "AIzaSyDjA1siGG_viebpFzWY9pmSOpz3KKwrVHE",
-    authDomain: "test-registro-clientes.firebaseapp.com",
-    projectId: "test-registro-clientes",
-    storageBucket: "test-registro-clientes.appspot.com",
-    messagingSenderId: "947240990080",
-    appId: "1:947240990080:web:e8015fe9ff7a28bfc83d65",
+    apiKey: "AIzaSyCZTxxYCaU-VH7qwlsSlOvVRpOUSIFrr_M",
+    authDomain: "controlsymphony-5cfb7.firebaseapp.com",
+    projectId: "controlsymphony-5cfb7",
+    storageBucket: "controlsymphony-5cfb7.appspot.com",
+    messagingSenderId: "398675695405",
+    appId: "1:398675695405:web:a38406ce132f02f81ae5a4",
+    measurementId: `G-Y2L9WYQLBM`,
   };
   static app = "ssssss";
   static db = undefined;
@@ -65,22 +66,21 @@ export default class FireBase {
     let docRef = doc(this.db, "Clientes", cliente.id);
     delete cliente.id;
     try {
-      const res = await setDoc(docRef, cliente)
-      return true
+      const res = await setDoc(docRef, cliente);
+      return true;
     } catch (error) {
-      return false
+      return false;
     }
   }
 
-  static async EliminarRegistro(cliente){
+  static async EliminarRegistro(cliente) {
     let docRef = doc(this.db, "Clientes", cliente.id);
     delete cliente.id;
     try {
-      const res = await deleteDoc(docRef, cliente)
-      return true
+      const res = await deleteDoc(docRef, cliente);
+      return true;
     } catch (error) {
-      return false
+      return false;
     }
   }
-
 }
