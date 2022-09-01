@@ -51,6 +51,10 @@ function TraductorDicom(dato){
         return "endoscopia";
         case "LS":
         return "Escaneo láser de superficie";
+        case "SR":
+        return "Documento RS";
+        case "OT":
+        return "Otros";
       default:
         return dato;
     }
@@ -73,7 +77,7 @@ const ExportExcel = async (Cliente, Fechas) => {
     let obj = {};
     let array = [];
     est.forEach((e) => {
-        var fecha = moment(e.FECHA, "YYYYMMDD").format("YYYY/MM/DD");
+        var fecha = moment(e.FECHA, "YYYYMMDD").format("DD/MM/YYYY");
         obj.FECHA = fecha;
         obj.NOMBRE = e.NOMBRE;
         obj.PAS_ID = e.PAS_ID;

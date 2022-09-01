@@ -4,13 +4,15 @@ import React from 'react'
 function Calendar(props) {
   return (
     <div
-      className="offcanvas offcanvas-bottom"
-      tabIndex="-1"
-      id="offcanvasBottom"
-      aria-labelledby="offcanvasBottomLabel"
+    className="offcanvas offcanvas-end"
+    data-bs-scroll="false"
+    data-bs-backdrop="true"
+    tabIndex="-1"
+    id="offcanvasRightCalendar"
+    aria-labelledby="offcanvasRightLabel"
     >
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title" id="offcanvasBottomLabel">
+        <h5 className="offcanvas-title" id="offcanvasRightLabelCalendar">
           Fecha
         </h5>
         <button

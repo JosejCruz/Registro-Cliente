@@ -14,8 +14,8 @@ function Navbar(props) {
             className="btn me-md-2 color text-white"
             type="button"
             data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasBottom"
-            aria-controls="offcanvasBottom"
+            data-bs-target="#offcanvasRightCalendar"
+            aria-controls="offcanvasRight"
           >
             <ion-icon name="calendar-outline"></ion-icon>
           </button>
