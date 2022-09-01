@@ -21,8 +21,12 @@ function TraductorDicom(dato){
       return "Mamografía";
     case "ES":
       return "endoscopia";
-      case "LS":
+    case "LS":
       return "Escaneo láser de superficie";
+    case "SR":
+      return "Documento RS";
+    case "OT":
+      return "Otros";
     default:
       return dato;
   }
