@@ -70,7 +70,7 @@ const ExportExcel = async (Cliente, Fechas) => {
     const ff = moment(Fechas.final, "YYYY-MM-DD").format("YYYYMMDD");
     console.log(fi, ff);
     let datos = await axios.get(
-      `${Cliente.url}/getestudios?inicio=${fi}&${ff}`
+      `${Cliente.url}/getestudios?inicio=${fi}&fin=${ff}`
     );
     console.log(datos.data);
     let est = datos.data;
