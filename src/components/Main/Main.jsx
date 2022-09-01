@@ -27,8 +27,10 @@ function main(props) {
   
     const handleExportExcel = async () => {
       if (Estudios != null) {
+        setSpinner(true)
         const excel = await ExportExcel(Datos, props.Fechas);
         console.log(excel);
+        setSpinner(false)
         //--//--//--//--//
         var wb = XLSX.utils.book_new(),
           ws = XLSX.utils.json_to_sheet(excel);
