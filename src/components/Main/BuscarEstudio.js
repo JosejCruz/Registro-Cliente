@@ -40,6 +40,7 @@ const BuscarEstudios = async (Cliente, Fechas) => {
     );
     console.log(fi, ff)
     console.log(datos.data);
+    console.log(datos.data.reverse())
     let est = datos.data;
     let obj = {};
     est.forEach((e) => {

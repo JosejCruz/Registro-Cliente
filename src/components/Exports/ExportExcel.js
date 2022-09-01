@@ -85,7 +85,7 @@ const ExportExcel = async (Cliente, Fechas) => {
         array.push({...obj})
     })
     console.log(array)
-    return array;
+    return array.reverse();
   }
 };
 export default ExportExcel
